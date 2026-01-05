@@ -442,7 +442,7 @@
 };
 
 &tlmm {
-
+    gpio-reserved-ranges = <6 4>, <17 2>;
     ts_int_default: ts-int-default-state {
         pins = "gpio22";
         function = "gpio";
@@ -491,4 +491,5 @@
 
 	status = "okay";
 };
+
 
