@@ -7,7 +7,7 @@
 #include <dt-bindings/leds/common.h>
 #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
 #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-#include "sm6350.dtsi"
+#include "sm7225.dtsi"
 #include "pm6150l.dtsi"
 #include "pm6350.dtsi"
 
@@ -22,7 +22,8 @@
 		#address-cells = <2>;
 		#size-cells = <2>;
 		ranges;
-
+		// bootargs = "loglevel=8 ignore_loglevel clk_ignore_unused pd_ignore_unused nowatchdog nomodeset modprobe.blacklist=msm,msm_drm initcall_blacklist=msm_drm_register drm.debug=0x0 video=simplefb:off console=tty0";
+                bootargs = "loglevel=8 ignore_loglevel clk_ignore_unused pd_ignore_unused nowatchdog console=tty0 earlycon=keep panic=180 drm.debug=0x4";
 		framebuffer: framebuffer@a0000000 {
 			compatible = "simple-framebuffer";
 			reg = <0 0xa0000000 0 0x2300000>;
@@ -307,7 +308,7 @@
 };
 
 
-&i2c2 {
+&i2c8 {
     status = "okay";
 
     touchscreen@38 {
@@ -336,7 +337,8 @@
 	status = "okay";
 
 	panel@0 {
-		compatible = "xiaomi,j17-36-02-0a-video";
+		//  compatible = "xiaomi,j17-36-02-0a-video";
+		compatible = "qcom,mdss-dsi-j17-36-02-0a-dsc-video";
 		reg = <0>;
 
 		reset-gpios = <&pm6150l_gpios 9 GPIO_ACTIVE_LOW>;
@@ -442,7 +444,9 @@
 };
 
 &tlmm {
-    gpio-reserved-ranges = <6 4>, <17 2>;
+	// gpio-reserved-ranges = gpio-reserved-ranges = <0 60>;
+	// gpio-reserved-ranges = <11 83>;
+	gpio-reserved-ranges = <13 4>, <45 2>, <56 2>;
     ts_int_default: ts-int-default-state {
         pins = "gpio22";
         function = "gpio";
@@ -491,5 +495,4 @@
 
 	status = "okay";
 };
-
 
